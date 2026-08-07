@@ -15,10 +15,11 @@ export const siteConfig = {
 
   facebookUrl: "https://www.facebook.com/profile.php?id=61579404106617",
 
-  // FILLER — get a free access key at https://web3forms.com (just enter
-  // an email, no account needed) and swap this in before launch. Until
-  // then the contact form will fail to send.
-  web3formsAccessKey: "YOUR_WEB3FORMS_ACCESS_KEY",
+  // TEST KEY — currently routes contact-form submissions to
+  // hello@launchauxo.com for testing. Swap for a production key tied to
+  // Ben's real inbox (e.g. benbj@bbsmobilewelding.com) before launch —
+  // get one free at https://web3forms.com, no account needed.
+  web3formsAccessKey: "e0863328-8191-427d-8c99-661b0f04877d",
 
   city: "Cedar Rapids, Iowa",
   addressLocality: "Cedar Rapids",

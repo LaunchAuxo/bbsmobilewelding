@@ -18,7 +18,7 @@ Nothing else needs to change.
 | `hours` | ⏳ Placeholder | Mon–Fri 7–6, Sat by appt — confirm with Ben |
 | `serviceAreaCities` | ⏳ Placeholder | Rough list of ~25 eastern Iowa towns — confirm/trim with Ben |
 | `services` | ⏳ Placeholder | Rough 7-item list — confirm/trim with Ben |
-| `web3formsAccessKey` | ⏳ Placeholder | Contact form won't send until this is a real key — see below |
+| `web3formsAccessKey` | ⚠️ Test key | Working, but routes to hello@launchauxo.com for testing — swap for a production key before launch, see below |
 
 Also swap `/logo.jpg` in `public/` for a higher-resolution or vector
 version if one ever exists — the current one is the single 1500×1500
@@ -38,12 +38,14 @@ dimensions (avoids layout shift).
 
 **Contact form:** `src/components/ContactForm.tsx` posts directly to
 [Web3Forms](https://web3forms.com) from the browser — no backend needed,
-which matters since this is a static export. To make it actually send:
-1. Go to web3forms.com, enter Ben's email, and copy the access key it
-   emails back (free, no account/dashboard required).
-2. Paste it into `web3formsAccessKey` in `src/lib/site-config.ts`.
-Until then, submissions will fail with a "something went wrong" message
-(the form itself works fine — it's just rejecting the placeholder key).
+which matters since this is a static export. It's working end-to-end
+right now, but the current key routes submissions to
+hello@launchauxo.com for testing. Before launch:
+1. Go to web3forms.com, enter Ben's real inbox (e.g.
+   benbj@bbsmobilewelding.com), and copy the access key it emails back
+   (free, no account/dashboard required).
+2. Swap it into `web3formsAccessKey` in `src/lib/site-config.ts`,
+   replacing the test key.
 
 ## Local development
 
