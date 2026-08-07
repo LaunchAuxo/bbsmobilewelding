@@ -41,7 +41,7 @@ export const navLinks = [
   { href: "#service-area", label: "Service Area" },
   { href: "#gallery", label: "Gallery" },
   { href: "#about", label: "About" },
-  { href: "#contact-form", label: "Contact" },
+  { href: "#contact", label: "Contact" },
 ] as const;
 
 // The SMS pre-filled quote template — Ben's favorite feature, adapted from
