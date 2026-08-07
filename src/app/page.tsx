@@ -212,7 +212,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div id="contact-form" className="mt-8 scroll-mt-24 border-t border-white/10 pt-6 sm:mt-10 sm:pt-8">
+          <div id="contact-form" className="mt-8 scroll-mt-36 border-t border-white/10 pt-6 sm:mt-10 sm:pt-8">
             <p className="font-display text-xs font-semibold tracking-[0.2em] text-mist uppercase sm:text-sm">
               Or send the details here
             </p>
