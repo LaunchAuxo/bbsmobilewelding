@@ -41,17 +41,29 @@ npm run build      # static export -> out/
 npm run lint
 ```
 
-## Deployment (Cloudflare Pages, not Vercel)
+## Deployment (Cloudflare Workers static assets, not Vercel)
+
+Cloudflare's newer git-connected project flow creates a **Workers**
+project (not classic Pages), which builds and deploys via Wrangler.
+This repo is set up for that: [`wrangler.jsonc`](wrangler.jsonc)
+declares an assets-only Worker (no server code) pointing at `out/`.
 
 1. Push this repo to GitHub.
-2. In Cloudflare Pages, connect the repo. Build command: `npm run build`.
-   Output directory: `out`.
-3. Cloudflare Pages auto-deploys on every push to `main`.
+2. In the Cloudflare dashboard, connect the repo as a Workers project.
+   In **Settings → Build**, set:
+   - **Build command:** `npm run build`
+   - **Deploy command:** `npx wrangler deploy`
+   Do **not** use the "Next.js" framework preset — that defaults to
+   `opennextjs-cloudflare build`, which builds a full SSR Worker. This
+   site is a static export and doesn't need that adapter.
+3. Cloudflare auto-deploys on every push to `main`.
 4. Point `bbsmobilewelding.com` (registered through Google) at Cloudflare
    by switching its nameservers to the ones Cloudflare assigns, then
-   attach the domain to the Pages project.
+   attach the domain to the Worker (Settings → Domains & Routes).
 
-No environment variables are required — the site has no backend.
+No environment variables or bindings are required — the site has no
+backend. Verify the config anytime with `npm run build && npx wrangler
+deploy --dry-run`.
 
 ## Notes on how it's built
 

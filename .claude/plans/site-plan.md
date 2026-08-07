@@ -77,8 +77,8 @@ Used as the primary CTA button site-wide ("Text Photos. Fast Quote." style), mat
 
 ## Deployment (client's process, not the skill default)
 1. **GitHub:** push the project to a new repo (public or private per Ben's preference)
-2. **Cloudflare Pages:** connect the repo via Git integration — build command `npm run build`, output directory `out/`. Auto-deploys on every push to `main`.
-3. **Domain:** `bbsmobilewelding.com` is registered through Google; DNS will be switched to Cloudflare nameservers, then the domain attached to the Pages project in Cloudflare.
+2. **Cloudflare Workers (static assets):** connecting a repo through Cloudflare's current dashboard creates a Workers project, not classic Pages. Build command `npm run build`, deploy command `npx wrangler deploy`. `wrangler.jsonc` declares an assets-only Worker pointing at `out/` (no server code, no bindings). The "Next.js" framework preset must NOT be used — it defaults to the `opennextjs-cloudflare` SSR adapter, which this static-export build doesn't need and which broke the first deploy attempt.
+3. **Domain:** `bbsmobilewelding.com` is registered through Google; DNS will be switched to Cloudflare nameservers, then the domain attached to the Worker.
 4. No Vercel involved anywhere in this build.
 
 ## Build sequence
