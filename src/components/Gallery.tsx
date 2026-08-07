@@ -5,83 +5,94 @@ import Image from "next/image";
 import type { BeforeAfterPair, GalleryPhoto } from "@/lib/site-config";
 import { ArrowLeftIcon, ArrowRightIcon, CloseIcon, ZoomIcon } from "./icons";
 
-// Shared scroll-snap carousel behavior: which slide is most visible (for
+// Shared scroll-snap carousel behavior: which slide is "active" (for
 // dots/arrow-disable state) and a helper to scroll to a given slide.
 //
-// Several slides can be partially on-screen at once in this carousel, so
-// "active" can't just be whichever slide last crossed a visibility
-// threshold — that picks up whichever slide happens to be last in DOM
-// order among the ones currently visible, not the one actually most in
-// view. Instead every slide's current visibility ratio is tracked and the
-// max wins. Ties (e.g. two slides both fully visible near the end of the
-// track, where a narrow last slide fits alongside its neighbor) prefer the
-// later slide — otherwise the tracker gets stuck one slide early and the
-// Next button never disables.
+// Two earlier attempts derived "active" purely from scroll geometry
+// (visibility ratio, then nearest-to-center), and both broke specifically
+// at the edges: the first/last slide often can't be fully centered or
+// fully "ratio 1" at the scroll limit, because there isn't enough content
+// past it to scroll any further — so a neighbor kept winning instead,
+// and a boundary patch on top of that fought legitimate navigation away
+// from the edge (it kept re-firing and snapping back, since the neighbor
+// slide's own centered position could *also* land near that same scroll
+// limit once slides cluster near the end).
+//
+// The fix: don't derive "active" from geometry for button/dot clicks at
+// all — they already know exactly which slide they're targeting, so they
+// just say so directly. Geometry-based detection (nearest-center, with a
+// boundary snap) is only used to sync `active` after a genuine manual
+// drag/swipe, where there's no explicit target to reference. A flag
+// distinguishes the two so a click's own scroll settling doesn't get
+// "corrected" back to the wrong slide by the drag-sync logic.
 function useCarousel(count: number) {
   const trackRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const ratiosRef = useRef<number[]>([]);
   const [active, setActive] = useState(0);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track || count === 0) return;
-
-    ratiosRef.current = Array.from({ length: count }, () => 0);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          const index = slideRefs.current.findIndex((el) => el === entry.target);
-          if (index !== -1) ratiosRef.current[index] = entry.intersectionRatio;
-        }
-        let bestIndex = 0;
-        let bestRatio = -1;
-        ratiosRef.current.forEach((ratio, index) => {
-          if (ratio >= bestRatio) {
-            bestRatio = ratio;
-            bestIndex = index;
-          }
-        });
-        setActive(bestIndex);
-      },
-      { root: track, threshold: [0, 0.25, 0.5, 0.75, 1] }
-    );
-
-    slideRefs.current.forEach((el) => el && observer.observe(el));
-
-    // Belt-and-suspenders for the ratio-based tracking above: sub-pixel
-    // rounding can leave a boundary slide at e.g. 0.998 visible while a
-    // full-width neighbor sits at an exact 1.0, so the ratio comparison
-    // alone can understate which slide is really "current" once the
-    // track is scrolled all the way to either end — and because
-    // IntersectionObserver only fires on threshold crossings, its last
-    // callback for a given scroll can land slightly before a smooth
-    // scroll animation actually finishes, so it can't be relied on to
-    // catch the final resting position either. A plain `scroll` listener
-    // fires continuously, including at settle, so it catches it directly.
-    const onScroll = () => {
-      if (track.scrollLeft <= 2) {
-        setActive(0);
-      } else if (track.scrollLeft >= track.scrollWidth - track.clientWidth - 2) {
-        setActive(count - 1);
-      }
-    };
-    track.addEventListener("scroll", onScroll, { passive: true });
-
-    return () => {
-      observer.disconnect();
-      track.removeEventListener("scroll", onScroll);
-    };
-  }, [count]);
+  // Wall-clock cooldown rather than a boolean: a smooth-scroll animation
+  // can fire scroll events in bursts with gaps between them, and each
+  // gap over the debounce window below looks like a "settle" — a plain
+  // flag reset by the first such gap would let a later, still-mid-
+  // animation settle fire the drag-sync path anyway. Gating on elapsed
+  // time survives any number of those intermediate settles.
+  const programmaticUntilRef = useRef(0);
+  const settleTimerRef = useRef<number | null>(null);
 
   function scrollToSlide(index: number) {
-    slideRefs.current[index]?.scrollIntoView({
+    const clamped = Math.max(0, Math.min(count - 1, index));
+    programmaticUntilRef.current = Date.now() + 900;
+    setActive(clamped);
+    slideRefs.current[clamped]?.scrollIntoView({
       behavior: "smooth",
       inline: "center",
       block: "nearest",
     });
   }
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || count === 0) return;
+
+    function onScroll() {
+      if (settleTimerRef.current !== null) window.clearTimeout(settleTimerRef.current);
+      settleTimerRef.current = window.setTimeout(() => {
+        if (Date.now() < programmaticUntilRef.current) {
+          return;
+        }
+        // A real drag/swipe/wheel scroll — derive active from where the
+        // user actually left it, snapping to the edge slide once close
+        // enough (it may never reach true min/max distance-to-center).
+        if (track!.scrollLeft <= 2) {
+          setActive(0);
+          return;
+        }
+        if (track!.scrollLeft >= track!.scrollWidth - track!.clientWidth - 2) {
+          setActive(count - 1);
+          return;
+        }
+        const trackRect = track!.getBoundingClientRect();
+        const trackCenter = trackRect.left + trackRect.width / 2;
+        let bestIndex = 0;
+        let bestDistance = Infinity;
+        slideRefs.current.forEach((el, index) => {
+          if (!el) return;
+          const r = el.getBoundingClientRect();
+          const distance = Math.abs(r.left + r.width / 2 - trackCenter);
+          if (distance < bestDistance) {
+            bestDistance = distance;
+            bestIndex = index;
+          }
+        });
+        setActive(bestIndex);
+      }, 120);
+    }
+
+    track.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      track.removeEventListener("scroll", onScroll);
+      if (settleTimerRef.current !== null) window.clearTimeout(settleTimerRef.current);
+    };
+  }, [count]);
 
   return { trackRef, slideRefs, active, scrollToSlide };
 }
