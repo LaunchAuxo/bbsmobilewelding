@@ -115,10 +115,10 @@ export default function Home() {
       <section id="about" className="scroll-mt-24 py-10 sm:py-14 lg:py-20">
         <Container className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-12">
           <div>
-            <div className="flex items-center gap-4">
-              <div className="flex size-16 shrink-0 flex-col items-center justify-center gap-0.5 rounded-full border border-dashed border-line text-steel sm:size-20">
-                <UserIcon className="size-5 sm:size-6" />
-                <span className="text-[9px] leading-none sm:text-[10px]">Coming soon</span>
+            <div className="flex items-start gap-4 sm:gap-6">
+              <div className="flex aspect-[3/4] w-28 shrink-0 flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-line text-steel sm:w-36">
+                <UserIcon className="size-6 sm:size-7" />
+                <span className="text-[10px] leading-none sm:text-xs">Coming soon</span>
               </div>
               <div>
                 <p className="font-display text-xs font-semibold tracking-[0.2em] text-steel uppercase sm:text-sm">
