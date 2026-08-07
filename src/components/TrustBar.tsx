@@ -26,14 +26,14 @@ const items = [
 
 export function TrustBar() {
   return (
-    <div className="grid grid-cols-1 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line lg:grid-cols-4">
       {items.map(({ icon: Icon, title, detail }) => (
-        <div key={title} className="flex flex-col gap-3 bg-paper p-6">
-          <Icon className="size-6 text-ink" />
-          <h3 className="font-display text-sm font-semibold tracking-wide text-ink uppercase">
+        <div key={title} className="flex flex-col gap-2 bg-paper p-4 sm:gap-3 sm:p-6">
+          <Icon className="size-5 text-ink sm:size-6" />
+          <h3 className="font-display text-xs font-semibold tracking-wide text-ink uppercase sm:text-sm">
             {title}
           </h3>
-          <p className="text-sm leading-relaxed text-steel">{detail}</p>
+          <p className="text-xs leading-relaxed text-steel sm:text-sm">{detail}</p>
         </div>
       ))}
     </div>

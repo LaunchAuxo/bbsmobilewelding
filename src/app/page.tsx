@@ -9,40 +9,40 @@ import { PhotoCarousel, BeforeAfterCarousel } from "@/components/Gallery";
 import { ContactForm } from "@/components/ContactForm";
 import { CallButton, SmsQuoteButton } from "@/components/CtaButtons";
 import { beforeAfterPairs, galleryPhotos, services, serviceAreaCities, siteConfig } from "@/lib/site-config";
-import { ClockIcon, MailIcon, MapPinIcon, PhoneIcon } from "@/components/icons";
+import { ClockIcon, MailIcon, MapPinIcon, PhoneIcon, UserIcon } from "@/components/icons";
 
 export default function Home() {
   return (
     <>
       <Hero />
 
-      <section className="py-16 lg:py-20">
+      <section className="py-10 sm:py-14 lg:py-20">
         <Container>
           <TrustBar />
         </Container>
       </section>
 
-      <section className="border-t border-line bg-fog py-16 lg:py-20">
+      <section className="border-t border-line bg-fog py-10 sm:py-14 lg:py-20">
         <Container>
           <SectionHeading
             eyebrow="How It Works"
             title="Three steps to a repair"
             description="No forms, no waiting on a callback. Send photos and Ben takes it from there."
           />
-          <div className="mt-12">
+          <div className="mt-8 lg:mt-12">
             <HowItWorks />
           </div>
         </Container>
       </section>
 
-      <section id="services" className="scroll-mt-24 py-16 lg:py-20">
+      <section id="services" className="scroll-mt-24 py-10 sm:py-14 lg:py-20">
         <Container>
           <SectionHeading
             eyebrow="Services"
             title="What Ben works on"
             description="A rough rundown of the most common jobs — if it doesn't fit neatly into a category, text a photo and ask."
           />
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
             {services.map((service) => (
               <ServiceCard key={service.slug} service={service} />
             ))}
@@ -50,32 +50,32 @@ export default function Home() {
         </Container>
       </section>
 
-      <section className="border-t border-line bg-fog py-16 lg:py-20">
+      <section className="border-t border-line bg-fog py-10 sm:py-14 lg:py-20">
         <Container>
           <SectionHeading
             eyebrow="Mobile or In-Shop"
             title="Two ways to get it fixed"
           />
-          <div className="mt-12">
+          <div className="mt-8 lg:mt-12">
             <MobileVsShop />
           </div>
         </Container>
       </section>
 
-      <section id="service-area" className="scroll-mt-24 py-16 lg:py-20">
+      <section id="service-area" className="scroll-mt-24 py-10 sm:py-14 lg:py-20">
         <Container>
           <SectionHeading
             eyebrow="Service Area"
             title={`Based in ${siteConfig.city}`}
             description={`Ben travels within a ${siteConfig.serviceRadiusLabel.toLowerCase()} for mobile jobs — roughly ${siteConfig.serviceRadiusMiles} miles out in any direction. Outside that range? Shop drop-off is always on the table.`}
           />
-          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-3">
             {serviceAreaCities.map((group) => (
               <div key={group.region}>
-                <h3 className="font-display text-sm font-semibold tracking-widest text-ink uppercase">
+                <h3 className="font-display text-xs font-semibold tracking-widest text-ink uppercase sm:text-sm">
                   {group.region}
                 </h3>
-                <ul className="mt-3 flex flex-col gap-1.5 text-sm text-steel">
+                <ul className="mt-2 flex flex-col gap-1 text-xs text-steel sm:mt-3 sm:gap-1.5 sm:text-sm">
                   {group.towns.map((town) => (
                     <li key={town}>{town}</li>
                   ))}
@@ -86,42 +86,50 @@ export default function Home() {
         </Container>
       </section>
 
-      <section id="gallery" className="scroll-mt-24 border-t border-line bg-fog py-16 lg:py-20">
+      <section id="gallery" className="scroll-mt-24 border-t border-line bg-fog py-10 sm:py-14 lg:py-20">
         <Container>
           <SectionHeading
             eyebrow="Gallery"
             title="Recent work"
             description="A few jobs Ben's finished recently — swipe through, or tap a photo for the full-size view."
           />
-          <div className="mt-10">
-            <h3 className="font-display text-sm font-semibold tracking-widest text-ink uppercase">
+          <div className="mt-6 sm:mt-10">
+            <h3 className="font-display text-xs font-semibold tracking-widest text-ink uppercase sm:text-sm">
               Finished Work
             </h3>
-            <div className="mt-4">
+            <div className="mt-3 sm:mt-4">
               <PhotoCarousel photos={galleryPhotos} />
             </div>
           </div>
-          <div className="mt-10">
-            <h3 className="font-display text-sm font-semibold tracking-widest text-ink uppercase">
+          <div className="mt-6 sm:mt-10">
+            <h3 className="font-display text-xs font-semibold tracking-widest text-ink uppercase sm:text-sm">
               Before &amp; After
             </h3>
-            <div className="mt-4">
+            <div className="mt-3 sm:mt-4">
               <BeforeAfterCarousel pairs={beforeAfterPairs} />
             </div>
           </div>
         </Container>
       </section>
 
-      <section id="about" className="scroll-mt-24 py-16 lg:py-20">
-        <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
+      <section id="about" className="scroll-mt-24 py-10 sm:py-14 lg:py-20">
+        <Container className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-12">
           <div>
-            <p className="font-display text-sm font-semibold tracking-[0.2em] text-steel uppercase">
-              About
-            </p>
-            <h2 className="mt-2 text-balance font-display text-3xl font-semibold tracking-tight text-ink uppercase sm:text-4xl">
-              One welder. No middlemen.
-            </h2>
-            <div className="mt-6 flex flex-col gap-4 text-lg leading-relaxed text-steel">
+            <div className="flex items-center gap-4">
+              <div className="flex size-16 shrink-0 flex-col items-center justify-center gap-0.5 rounded-full border border-dashed border-line text-steel sm:size-20">
+                <UserIcon className="size-5 sm:size-6" />
+                <span className="text-[9px] leading-none sm:text-[10px]">Coming soon</span>
+              </div>
+              <div>
+                <p className="font-display text-xs font-semibold tracking-[0.2em] text-steel uppercase sm:text-sm">
+                  About
+                </p>
+                <h2 className="mt-1 text-balance font-display text-2xl font-semibold tracking-tight text-ink uppercase sm:text-3xl lg:text-4xl">
+                  One welder. No middlemen.
+                </h2>
+              </div>
+            </div>
+            <div className="mt-4 flex flex-col gap-3 text-base leading-relaxed text-steel sm:mt-6 sm:gap-4 sm:text-lg">
               <p>
                 BB&rsquo;s Mobile Welding is Ben Bjornsen, working solo out of
                 Cedar Rapids. There&rsquo;s no dispatcher, no rotating crew,
@@ -140,7 +148,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="flex flex-col gap-4 rounded-lg border border-line bg-fog p-8">
+          <div className="flex flex-col gap-3 rounded-lg border border-line bg-fog p-5 sm:gap-4 sm:p-8">
             <h3 className="font-display text-sm font-semibold tracking-widest text-ink uppercase">
               Hours
             </h3>
@@ -159,31 +167,34 @@ export default function Home() {
         </Container>
       </section>
 
-      <section id="contact" className="scroll-mt-24 border-t border-line bg-black py-16 lg:py-20">
+      <section id="contact" className="scroll-mt-24 border-t border-line bg-black py-10 sm:py-14 lg:py-20">
         <Container>
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.1fr_1fr]">
-            <div className="flex flex-col items-start gap-6">
-              <p className="font-display text-sm font-semibold tracking-[0.2em] text-mist uppercase">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
+            <div className="flex flex-col items-start gap-4 sm:gap-6">
+              <p className="font-display text-xs font-semibold tracking-[0.2em] text-mist uppercase sm:text-sm">
                 Contact
               </p>
-              <h2 className="max-w-xl text-balance font-display text-3xl font-semibold tracking-tight text-paper uppercase sm:text-4xl">
+              <h2 className="max-w-xl text-balance font-display text-2xl font-semibold tracking-tight text-paper uppercase sm:text-3xl lg:text-4xl">
                 Got something that needs welded?
               </h2>
-              <p className="max-w-xl text-lg leading-relaxed text-mist">
+              <p className="max-w-xl text-base leading-relaxed text-mist sm:text-lg">
                 Text a wide photo and a close-up of the damage, plus whether
                 it needs to be mobile or can come to the shop. Ben will tell
                 you what it takes to fix it.
               </p>
-              <div className="flex flex-col gap-3 sm:flex-row">
+              <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
                 <SmsQuoteButton size="lg" />
                 <CallButton
                   size="lg"
                   className="border-paper text-paper hover:bg-paper hover:text-black"
                 />
               </div>
+              <a href="#contact-form" className="text-sm text-mist underline underline-offset-2 hover:text-paper">
+                Prefer email? Skip to the form ↓
+              </a>
             </div>
 
-            <div className="flex flex-col gap-4 rounded-lg border border-white/10 bg-charcoal p-8">
+            <div className="flex flex-col gap-3 rounded-lg border border-white/10 bg-charcoal p-5 sm:gap-4 sm:p-8">
               <a
                 href={siteConfig.phoneHref}
                 className="flex items-center gap-3 text-paper"
@@ -205,11 +216,11 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-12 border-t border-white/10 pt-12">
-            <p className="font-display text-sm font-semibold tracking-[0.2em] text-mist uppercase">
+          <div id="contact-form" className="mt-8 scroll-mt-24 border-t border-white/10 pt-6 sm:mt-10 sm:pt-8">
+            <p className="font-display text-xs font-semibold tracking-[0.2em] text-mist uppercase sm:text-sm">
               Or send the details here
             </p>
-            <div className="mt-6 max-w-2xl">
+            <div className="mt-4 max-w-2xl sm:mt-6">
               <ContactForm />
             </div>
           </div>

@@ -7,8 +7,8 @@ import { FacebookIcon, MailIcon, MapPinIcon, PhoneIcon } from "./icons";
 export function Footer() {
   return (
     <footer className="bg-black text-fog">
-      <Container className="grid gap-10 py-16 lg:grid-cols-[1.3fr_1fr_1fr]">
-        <div className="flex flex-col gap-4">
+      <Container className="grid grid-cols-2 gap-x-6 gap-y-8 py-10 sm:py-12 lg:grid-cols-[1.3fr_1fr_1fr] lg:gap-10 lg:py-16">
+        <div className="col-span-2 flex flex-col gap-4 lg:col-span-1">
           <Logo size={52} variant="light" />
           <p className="max-w-sm text-sm leading-relaxed text-mist">
             {siteConfig.tagline} Owner-operated out of {siteConfig.city} —
@@ -73,7 +73,7 @@ export function Footer() {
       </Container>
 
       <div className="border-t border-white/10">
-        <Container className="flex flex-col gap-3 py-6 text-xs text-mist sm:flex-row sm:items-center sm:justify-between">
+        <Container className="flex flex-col gap-2 py-4 text-xs text-mist sm:flex-row sm:items-center sm:justify-between sm:py-6">
           <p>
             &copy; {new Date().getFullYear()} {siteConfig.businessName}. All
             rights reserved.

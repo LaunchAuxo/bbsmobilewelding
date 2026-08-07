@@ -232,7 +232,7 @@ function LightboxShell({
   );
 }
 
-const SLIDE_HEIGHT = "h-[300px] sm:h-[380px]";
+const SLIDE_HEIGHT = "h-[190px] sm:h-[300px] lg:h-[380px]";
 
 function PhotoSlide({ photo, onOpen }: { photo: GalleryPhoto; onOpen: () => void }) {
   return (

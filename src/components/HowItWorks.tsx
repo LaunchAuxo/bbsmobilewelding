@@ -21,13 +21,13 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <ol className="grid grid-cols-1 gap-8 sm:grid-cols-3">
+    <ol className="grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-8">
       {steps.map((step) => (
-        <li key={step.number} className="flex flex-col gap-3">
-          <span className="font-display text-4xl font-semibold text-line">
+        <li key={step.number} className="flex flex-col gap-2 sm:gap-3">
+          <span className="font-display text-3xl font-semibold text-line sm:text-4xl">
             {step.number}
           </span>
-          <h3 className="font-display text-lg font-semibold tracking-wide text-ink uppercase">
+          <h3 className="font-display text-base font-semibold tracking-wide text-ink uppercase sm:text-lg">
             {step.title}
           </h3>
           <p className="text-sm leading-relaxed text-steel">{step.detail}</p>
