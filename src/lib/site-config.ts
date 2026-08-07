@@ -1,5 +1,5 @@
-// PLACEHOLDER DATA — replace phone, email, and address details before launch.
-// See README.md "Before you launch" checklist.
+// Remaining placeholder data (hours, service list, service-area city list)
+// still needs Ben's confirmation. See README.md "Before you launch" checklist.
 
 export const siteConfig = {
   businessName: "BB's Mobile Welding",
@@ -7,13 +7,13 @@ export const siteConfig = {
   tagline: "Mobile welding repair, on your site or in the shop.",
   domain: "https://bbsmobilewelding.com",
 
-  // FILLER — swap for Ben's real number. Keep phone/phoneHref/sms in sync.
-  phoneDisplay: "(319) 555-0142",
-  phoneHref: "tel:+13195550142",
-  smsNumber: "+13195550142",
+  phoneDisplay: "(319) 573-7507",
+  phoneHref: "tel:+13195737507",
+  smsNumber: "+13195737507",
 
-  // FILLER — swap for Ben's real inbox.
-  email: "info@bbsmobilewelding.com",
+  email: "benbj@bbsmobilewelding.com",
+
+  facebookUrl: "https://www.facebook.com/profile.php?id=61579404106617",
 
   city: "Cedar Rapids, Iowa",
   addressLocality: "Cedar Rapids",

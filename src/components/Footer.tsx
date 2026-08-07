@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Container } from "./Container";
 import { Logo } from "./Logo";
 import { services, siteConfig, navLinks } from "@/lib/site-config";
-import { MailIcon, MapPinIcon, PhoneIcon } from "./icons";
+import { FacebookIcon, MailIcon, MapPinIcon, PhoneIcon } from "./icons";
 
 export function Footer() {
   return (
@@ -15,6 +15,15 @@ export function Footer() {
             mobile welding within a {siteConfig.serviceRadiusLabel}, or bring
             it to the shop.
           </p>
+          <a
+            href={siteConfig.facebookUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="BB's Mobile Welding on Facebook"
+            className="flex size-9 items-center justify-center rounded-md border border-white/10 text-mist hover:border-white/30 hover:text-paper"
+          >
+            <FacebookIcon className="size-4" />
+          </a>
         </div>
 
         <div>

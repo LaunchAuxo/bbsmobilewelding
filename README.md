@@ -9,13 +9,14 @@ serving Cedar Rapids, Iowa and a ~2-hour radius. Next.js 16 (App Router)
 Everything below lives in one file: [`src/lib/site-config.ts`](src/lib/site-config.ts).
 Nothing else needs to change.
 
-| Field | Current placeholder | Replace with |
+| Field | Status | Notes |
 |---|---|---|
-| `phoneDisplay` / `phoneHref` / `smsNumber` | `(319) 555-0142` | Ben's real number, in all three fields (keep them in sync) |
-| `email` | `info@bbsmobilewelding.com` | Ben's real inbox |
-| `hours` | Mon–Fri 7–6, Sat by appt | Ben's actual hours |
-| `serviceAreaCities` | Rough list of ~25 eastern Iowa towns | Confirm/trim with Ben |
-| `services` | Rough 7-item list | Confirm/trim with Ben |
+| `phoneDisplay` / `phoneHref` / `smsNumber` | ✅ Real | (319) 573-7507 |
+| `email` | ✅ Real | benbj@bbsmobilewelding.com |
+| `facebookUrl` | ✅ Real | linked in footer + JSON-LD `sameAs` |
+| `hours` | ⏳ Placeholder | Mon–Fri 7–6, Sat by appt — confirm with Ben |
+| `serviceAreaCities` | ⏳ Placeholder | Rough list of ~25 eastern Iowa towns — confirm/trim with Ben |
+| `services` | ⏳ Placeholder | Rough 7-item list — confirm/trim with Ben |
 
 Also swap `/logo.jpg` in `public/` for a higher-resolution or vector
 version if one ever exists — the current one is the single 1500×1500

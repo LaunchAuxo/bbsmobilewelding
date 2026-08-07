@@ -65,6 +65,7 @@ const jsonLd = {
   url: siteConfig.domain,
   telephone: siteConfig.phoneHref.replace("tel:", ""),
   email: siteConfig.email,
+  sameAs: [siteConfig.facebookUrl],
   priceRange: "$$",
   address: {
     "@type": "PostalAddress",
