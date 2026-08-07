@@ -22,11 +22,12 @@ Also swap `/logo.jpg` in `public/` for a higher-resolution or vector
 version if one ever exists — the current one is the single 1500×1500
 JPG provided, so it's also standing in as the favicon and OG image.
 
-**Photos:** there's no jobsite photography yet, so the Gallery section
-renders an honest "coming soon" placeholder grid instead of stock
-images. Once Ben has real photos, drop them in `public/gallery/` and
-swap the placeholder loop in `src/app/page.tsx` (`#gallery` section)
-for an array of real images.
+**Photos:** the Gallery section is a swipeable carousel with a
+click-to-expand lightbox (`src/components/Gallery.tsx`), showing 7 real
+jobsite photos. To add more, drop the image in `public/gallery/` and
+add an entry (`src`, `width`, `height`, `alt`) to `galleryPhotos` in
+`src/lib/site-config.ts` — width/height should be the file's actual
+pixel dimensions (avoids layout shift).
 
 ## Local development
 

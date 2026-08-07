@@ -8,29 +8,44 @@ import { ArrowLeftIcon, ArrowRightIcon, CloseIcon, ZoomIcon } from "./icons";
 export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const ratiosRef = useRef<number[]>([]);
   const [active, setActive] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  // Track which slide is centered as the user swipes/scrolls the carousel.
+  // Track which slide is most visible as the user swipes/scrolls the
+  // carousel. Several slides can be partially on-screen at once, so we
+  // can't just react to whichever one last crossed a threshold — that
+  // picks up whichever slide happens to be last in DOM order among the
+  // ones currently visible, not the one actually most in view. Instead,
+  // keep every slide's current visibility ratio and pick the max.
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
 
+    ratiosRef.current = photos.map(() => 0);
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) {
-            const index = slideRefs.current.findIndex((el) => el === entry.target);
-            if (index !== -1) setActive(index);
-          }
+          const index = slideRefs.current.findIndex((el) => el === entry.target);
+          if (index !== -1) ratiosRef.current[index] = entry.intersectionRatio;
         }
+        let bestIndex = 0;
+        let bestRatio = -1;
+        ratiosRef.current.forEach((ratio, index) => {
+          if (ratio > bestRatio) {
+            bestRatio = ratio;
+            bestIndex = index;
+          }
+        });
+        setActive(bestIndex);
       },
-      { root: track, threshold: 0.6 }
+      { root: track, threshold: [0, 0.25, 0.5, 0.75, 1] }
     );
 
     slideRefs.current.forEach((el) => el && observer.observe(el));
     return () => observer.disconnect();
-  }, [photos.length]);
+  }, [photos]);
 
   function scrollToSlide(index: number) {
     slideRefs.current[index]?.scrollIntoView({
