@@ -2,7 +2,8 @@
 
 Single-page marketing site for Ben Bjornsen's mobile welding business,
 serving Cedar Rapids, Iowa and a ~2-hour radius. Next.js 16 (App Router)
-+ Tailwind CSS v4, built as a static export for Cloudflare Pages.
++ Tailwind CSS v4, built as a static export for Cloudflare Workers
+(static assets).
 
 ## Before you launch — placeholder data to replace
 
@@ -17,6 +18,7 @@ Nothing else needs to change.
 | `hours` | ⏳ Placeholder | Mon–Fri 7–6, Sat by appt — confirm with Ben |
 | `serviceAreaCities` | ⏳ Placeholder | Rough list of ~25 eastern Iowa towns — confirm/trim with Ben |
 | `services` | ⏳ Placeholder | Rough 7-item list — confirm/trim with Ben |
+| `web3formsAccessKey` | ⏳ Placeholder | Contact form won't send until this is a real key — see below |
 
 Also swap `/logo.jpg` in `public/` for a higher-resolution or vector
 version if one ever exists — the current one is the single 1500×1500
@@ -24,10 +26,21 @@ JPG provided, so it's also standing in as the favicon and OG image.
 
 **Photos:** the Gallery section is a swipeable carousel with a
 click-to-expand lightbox (`src/components/Gallery.tsx`), showing 7 real
-jobsite photos. To add more, drop the image in `public/gallery/` and
-add an entry (`src`, `width`, `height`, `alt`) to `galleryPhotos` in
-`src/lib/site-config.ts` — width/height should be the file's actual
-pixel dimensions (avoids layout shift).
+jobsite photos plus support for before/after pairs (shown side-by-side
+in one slide, same height as the rest — doesn't grow the section). To
+add a plain photo or a before/after pair, add an entry to `galleryItems`
+in `src/lib/site-config.ts` — see the comment above that array for the
+exact shape. Width/height should be the file's actual pixel dimensions
+(avoids layout shift).
+
+**Contact form:** `src/components/ContactForm.tsx` posts directly to
+[Web3Forms](https://web3forms.com) from the browser — no backend needed,
+which matters since this is a static export. To make it actually send:
+1. Go to web3forms.com, enter Ben's email, and copy the access key it
+   emails back (free, no account/dashboard required).
+2. Paste it into `web3formsAccessKey` in `src/lib/site-config.ts`.
+Until then, submissions will fail with a "something went wrong" message
+(the form itself works fine — it's just rejecting the placeholder key).
 
 ## Local development
 
@@ -68,10 +81,10 @@ deploy --dry-run`.
 ## Notes on how it's built
 
 - **Static export.** `next.config.ts` sets `output: "export"`, so there's
-  no Node server at runtime — just HTML/CSS/JS Cloudflare Pages serves
-  directly. `next/image` optimization is disabled (`unoptimized: true`)
-  because the export has no image server; images still get explicit
-  width/height to avoid layout shift.
+  no Node server at runtime — just HTML/CSS/JS served directly as Worker
+  static assets. `next/image` optimization is disabled
+  (`unoptimized: true`) because the export has no image server; images
+  still get explicit width/height to avoid layout shift.
 - **One page.** Everything lives in `src/app/page.tsx` as anchor-linked
   sections (`#services`, `#service-area`, `#gallery`, `#about`,
   `#contact`). The nav in `src/lib/site-config.ts` (`navLinks`) scrolls

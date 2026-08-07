@@ -2,10 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import type { GalleryPhoto } from "@/lib/site-config";
+import type { GalleryItem, GalleryPhoto } from "@/lib/site-config";
 import { ArrowLeftIcon, ArrowRightIcon, CloseIcon, ZoomIcon } from "./icons";
 
-export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
+function itemKey(item: GalleryItem) {
+  return item.kind === "photo" ? item.photo.src : `${item.before.src}|${item.after.src}`;
+}
+
+export function Gallery({ items }: { items: GalleryItem[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
   const ratiosRef = useRef<number[]>([]);
@@ -22,7 +26,7 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
     const track = trackRef.current;
     if (!track) return;
 
-    ratiosRef.current = photos.map(() => 0);
+    ratiosRef.current = items.map(() => 0);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -33,7 +37,11 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
         let bestIndex = 0;
         let bestRatio = -1;
         ratiosRef.current.forEach((ratio, index) => {
-          if (ratio > bestRatio) {
+          // >= so that on an exact tie (e.g. two slides both fully visible
+          // near the end of the track, where a narrow last slide fits
+          // alongside its neighbor) the later slide wins — otherwise the
+          // tracker gets stuck one slide early and Next never disables.
+          if (ratio >= bestRatio) {
             bestRatio = ratio;
             bestIndex = index;
           }
@@ -45,7 +53,7 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
 
     slideRefs.current.forEach((el) => el && observer.observe(el));
     return () => observer.disconnect();
-  }, [photos]);
+  }, [items]);
 
   function scrollToSlide(index: number) {
     slideRefs.current[index]?.scrollIntoView({
@@ -61,8 +69,8 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setLightboxIndex(null);
-      if (e.key === "ArrowRight") setLightboxIndex((i) => (i === null ? i : (i + 1) % photos.length));
-      if (e.key === "ArrowLeft") setLightboxIndex((i) => (i === null ? i : (i - 1 + photos.length) % photos.length));
+      if (e.key === "ArrowRight") setLightboxIndex((i) => (i === null ? i : (i + 1) % items.length));
+      if (e.key === "ArrowLeft") setLightboxIndex((i) => (i === null ? i : (i - 1 + items.length) % items.length));
     };
     document.addEventListener("keydown", onKeyDown);
     const prevOverflow = document.body.style.overflow;
@@ -72,9 +80,9 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = prevOverflow;
     };
-  }, [lightboxIndex, photos.length]);
+  }, [lightboxIndex, items.length]);
 
-  const lightboxPhoto = lightboxIndex === null ? null : photos[lightboxIndex];
+  const lightboxItem = lightboxIndex === null ? null : items[lightboxIndex];
 
   return (
     <div className="relative">
@@ -82,42 +90,34 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
         ref={trackRef}
         className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {photos.map((photo, index) => (
+        {items.map((item, index) => (
           <div
-            key={photo.src}
+            key={itemKey(item)}
             ref={(el) => {
               slideRefs.current[index] = el;
             }}
-            className="relative h-[420px] shrink-0 snap-center sm:h-[520px]"
-            style={{ aspectRatio: `${photo.width} / ${photo.height}` }}
+            className="relative h-[420px] w-fit shrink-0 snap-center sm:h-[520px]"
           >
-            <button
-              type="button"
-              onClick={() => setLightboxIndex(index)}
-              className="group relative block h-full w-full overflow-hidden rounded-lg border border-line"
-              aria-label={`View full-size: ${photo.alt}`}
-            >
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                width={photo.width}
-                height={photo.height}
-                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                sizes="(min-width: 640px) 520px, 420px"
+            {item.kind === "photo" ? (
+              <GallerySlide
+                photo={item.photo}
+                onOpen={() => setLightboxIndex(index)}
               />
-              <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-opacity group-hover:bg-black/20 group-hover:opacity-100">
-                <ZoomIcon className="size-8 text-paper drop-shadow" />
-              </span>
-            </button>
+            ) : (
+              <div className="flex h-full gap-1">
+                <GallerySlide photo={item.before} label="Before" onOpen={() => setLightboxIndex(index)} />
+                <GallerySlide photo={item.after} label="After" onOpen={() => setLightboxIndex(index)} />
+              </div>
+            )}
           </div>
         ))}
       </div>
 
       <div className="mt-5 flex items-center justify-between">
         <div className="flex gap-1.5">
-          {photos.map((photo, index) => (
+          {items.map((item, index) => (
             <button
-              key={photo.src}
+              key={itemKey(item)}
               type="button"
               onClick={() => scrollToSlide(index)}
               aria-label={`Go to photo ${index + 1}`}
@@ -140,8 +140,8 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
           </button>
           <button
             type="button"
-            onClick={() => scrollToSlide(Math.min(active + 1, photos.length - 1))}
-            disabled={active === photos.length - 1}
+            onClick={() => scrollToSlide(Math.min(active + 1, items.length - 1))}
+            disabled={active === items.length - 1}
             aria-label="Next photo"
             className="flex size-10 items-center justify-center rounded-md border border-line text-ink disabled:opacity-30"
           >
@@ -150,7 +150,7 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
         </div>
       </div>
 
-      {lightboxPhoto && (
+      {lightboxItem && (
         <div
           className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 p-4"
           role="dialog"
@@ -171,7 +171,7 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
             type="button"
             onClick={(e) => {
               e.stopPropagation();
-              setLightboxIndex((i) => (i === null ? i : (i - 1 + photos.length) % photos.length));
+              setLightboxIndex((i) => (i === null ? i : (i - 1 + items.length) % items.length));
             }}
             aria-label="Previous photo"
             className="absolute left-2 flex size-11 items-center justify-center rounded-md text-paper hover:bg-white/10 sm:left-4"
@@ -179,21 +179,31 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
             <ArrowLeftIcon className="size-6" />
           </button>
 
-          <Image
-            src={lightboxPhoto.src}
-            alt={lightboxPhoto.alt}
-            width={lightboxPhoto.width}
-            height={lightboxPhoto.height}
-            className="max-h-[85vh] max-w-[90vw] object-contain"
-            onClick={(e) => e.stopPropagation()}
-            sizes="90vw"
-          />
+          {lightboxItem.kind === "photo" ? (
+            <Image
+              src={lightboxItem.photo.src}
+              alt={lightboxItem.photo.alt}
+              width={lightboxItem.photo.width}
+              height={lightboxItem.photo.height}
+              className="max-h-[85vh] max-w-[90vw] object-contain"
+              onClick={(e) => e.stopPropagation()}
+              sizes="90vw"
+            />
+          ) : (
+            <div
+              className="flex max-h-[85vh] max-w-[90vw] flex-col items-center gap-4 sm:flex-row"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <LightboxHalf photo={lightboxItem.before} label="Before" />
+              <LightboxHalf photo={lightboxItem.after} label="After" />
+            </div>
+          )}
 
           <button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
-              setLightboxIndex((i) => (i === null ? i : (i + 1) % photos.length));
+              setLightboxIndex((i) => (i === null ? i : (i + 1) % items.length));
             }}
             aria-label="Next photo"
             className="absolute right-2 flex size-11 items-center justify-center rounded-md text-paper hover:bg-white/10 sm:right-4"
@@ -202,10 +212,66 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
           </button>
 
           <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-sm text-mist">
-            {lightboxIndex! + 1} / {photos.length}
+            {lightboxIndex! + 1} / {items.length}
           </p>
         </div>
       )}
+    </div>
+  );
+}
+
+function GallerySlide({
+  photo,
+  label,
+  onOpen,
+}: {
+  photo: GalleryPhoto;
+  label?: string;
+  onOpen: () => void;
+}) {
+  return (
+    <div className="relative h-full" style={{ aspectRatio: `${photo.width} / ${photo.height}` }}>
+      <button
+        type="button"
+        onClick={onOpen}
+        className="group relative block h-full w-full overflow-hidden rounded-lg border border-line"
+        aria-label={`View full-size: ${photo.alt}`}
+      >
+        <Image
+          src={photo.src}
+          alt={photo.alt}
+          width={photo.width}
+          height={photo.height}
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          sizes="(min-width: 640px) 520px, 420px"
+        />
+        {label && (
+          <span className="absolute top-2 left-2 rounded-md bg-black/70 px-2 py-1 font-display text-xs font-semibold tracking-widest text-paper uppercase">
+            {label}
+          </span>
+        )}
+        <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-opacity group-hover:bg-black/20 group-hover:opacity-100">
+          <ZoomIcon className="size-8 text-paper drop-shadow" />
+        </span>
+      </button>
+    </div>
+  );
+}
+
+function LightboxHalf({ photo, label }: { photo: GalleryPhoto; label: string }) {
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <span className="font-display text-xs font-semibold tracking-widest text-mist uppercase">
+        {label}
+      </span>
+      <Image
+        src={photo.src}
+        alt={photo.alt}
+        width={photo.width}
+        height={photo.height}
+        className="max-h-[40vh] max-w-[90vw] object-contain sm:max-h-[75vh] sm:max-w-[42vw]"
+        sizes="90vw"
+      />
     </div>
   );
 }

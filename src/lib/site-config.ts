@@ -15,6 +15,11 @@ export const siteConfig = {
 
   facebookUrl: "https://www.facebook.com/profile.php?id=61579404106617",
 
+  // FILLER — get a free access key at https://web3forms.com (just enter
+  // an email, no account needed) and swap this in before launch. Until
+  // then the contact form will fail to send.
+  web3formsAccessKey: "YOUR_WEB3FORMS_ACCESS_KEY",
+
   city: "Cedar Rapids, Iowa",
   addressLocality: "Cedar Rapids",
   addressRegion: "IA",
@@ -70,50 +75,83 @@ export type GalleryPhoto = {
   alt: string;
 };
 
-// Real jobsite photos. Add more the same way — src, native width/height
-// (avoids layout shift), and a short honest alt description.
-export const galleryPhotos: GalleryPhoto[] = [
+export type GalleryItem =
+  | { kind: "photo"; photo: GalleryPhoto }
+  | { kind: "before-after"; before: GalleryPhoto; after: GalleryPhoto };
+
+// Real jobsite photos, plus optional before/after pairs — mixed together
+// in one carousel so the gallery section doesn't need to grow to show
+// both. To add a before/after pair once photos exist, drop the two files
+// in public/gallery/ and add an entry like:
+//
+// {
+//   kind: "before-after",
+//   before: { src: "/gallery/08-trailer-before.jpg", width, height, alt: "Before: ..." },
+//   after: { src: "/gallery/08-trailer-after.jpg", width, height, alt: "After: ..." },
+// },
+export const galleryItems: GalleryItem[] = [
   {
-    src: "/gallery/01-stair-railing.jpg",
-    width: 720,
-    height: 960,
-    alt: "Custom black metal stair railing, interior residential install",
+    kind: "photo",
+    photo: {
+      src: "/gallery/01-stair-railing.jpg",
+      width: 720,
+      height: 960,
+      alt: "Custom black metal stair railing, interior residential install",
+    },
   },
   {
-    src: "/gallery/02-aluminum-fabrication.jpg",
-    width: 2048,
-    height: 1536,
-    alt: "Custom aluminum frame fabrication in the shop",
+    kind: "photo",
+    photo: {
+      src: "/gallery/02-aluminum-fabrication.jpg",
+      width: 2048,
+      height: 1536,
+      alt: "Custom aluminum frame fabrication in the shop",
+    },
   },
   {
-    src: "/gallery/03-commercial-crane.jpg",
-    width: 1536,
-    height: 2048,
-    alt: "Commercial jobsite with cranes setting steel on a storefront",
+    kind: "photo",
+    photo: {
+      src: "/gallery/03-commercial-crane.jpg",
+      width: 1536,
+      height: 2048,
+      alt: "Commercial jobsite with cranes setting steel on a storefront",
+    },
   },
   {
-    src: "/gallery/04-commercial-bracket.jpg",
-    width: 1536,
-    height: 2048,
-    alt: "Steel bracket installed on a commercial building exterior",
+    kind: "photo",
+    photo: {
+      src: "/gallery/04-commercial-bracket.jpg",
+      width: 1536,
+      height: 2048,
+      alt: "Steel bracket installed on a commercial building exterior",
+    },
   },
   {
-    src: "/gallery/05-weld-detail.jpg",
-    width: 1536,
-    height: 2048,
-    alt: "Close-up of a finished weld seam on fabricated equipment",
+    kind: "photo",
+    photo: {
+      src: "/gallery/05-weld-detail.jpg",
+      width: 1536,
+      height: 2048,
+      alt: "Close-up of a finished weld seam on fabricated equipment",
+    },
   },
   {
-    src: "/gallery/06-trailer-repair.jpg",
-    width: 1536,
-    height: 2048,
-    alt: "Trailer frame weld repair",
+    kind: "photo",
+    photo: {
+      src: "/gallery/06-trailer-repair.jpg",
+      width: 1536,
+      height: 2048,
+      alt: "Trailer frame weld repair",
+    },
   },
   {
-    src: "/gallery/07-gate-repair.jpg",
-    width: 1152,
-    height: 2048,
-    alt: "Gate frame corner weld repair, outdoor",
+    kind: "photo",
+    photo: {
+      src: "/gallery/07-gate-repair.jpg",
+      width: 1152,
+      height: 2048,
+      alt: "Gate frame corner weld repair, outdoor",
+    },
   },
 ];
 

@@ -6,8 +6,9 @@ import { MobileVsShop } from "@/components/MobileVsShop";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { Gallery } from "@/components/Gallery";
+import { ContactForm } from "@/components/ContactForm";
 import { CallButton, SmsQuoteButton } from "@/components/CtaButtons";
-import { galleryPhotos, services, serviceAreaCities, siteConfig } from "@/lib/site-config";
+import { galleryItems, services, serviceAreaCities, siteConfig } from "@/lib/site-config";
 import { ClockIcon, MailIcon, MapPinIcon, PhoneIcon } from "@/components/icons";
 
 export default function Home() {
@@ -93,7 +94,7 @@ export default function Home() {
             description="A few jobs Ben's finished recently — swipe through, or tap a photo for the full-size view."
           />
           <div className="mt-12">
-            <Gallery photos={galleryPhotos} />
+            <Gallery items={galleryItems} />
           </div>
         </Container>
       </section>
@@ -188,6 +189,15 @@ export default function Home() {
                 <MapPinIcon className="size-5 shrink-0 text-mist" />
                 {siteConfig.city} &middot; {siteConfig.serviceRadiusLabel}
               </div>
+            </div>
+          </div>
+
+          <div className="mt-12 border-t border-white/10 pt-12">
+            <p className="font-display text-sm font-semibold tracking-[0.2em] text-mist uppercase">
+              Or send the details here
+            </p>
+            <div className="mt-6 max-w-2xl">
+              <ContactForm />
             </div>
           </div>
         </Container>
