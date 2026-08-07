@@ -139,13 +139,7 @@ export default function Home() {
                 Either way, you&rsquo;re talking to the guy doing the work.
               </p>
             </div>
-          </div>
-          <div className="flex flex-col gap-6">
-            <div className="flex aspect-[3/4] w-full max-w-56 flex-col items-center justify-center gap-1 self-center rounded-lg border border-dashed border-line text-steel sm:self-start">
-              <UserIcon className="size-7" />
-              <span className="text-xs">Coming soon</span>
-            </div>
-            <div className="flex flex-col gap-3 rounded-lg border border-line bg-fog p-5 sm:gap-4 sm:p-8">
+            <div className="mt-6 flex flex-col gap-3 rounded-lg border border-line bg-fog p-5 sm:gap-4 sm:p-8">
               <h3 className="font-display text-sm font-semibold tracking-widest text-ink uppercase">
                 Hours
               </h3>
@@ -161,6 +155,10 @@ export default function Home() {
                 ))}
               </ul>
             </div>
+          </div>
+          <div className="flex aspect-[3/4] w-full max-w-80 flex-col items-center justify-center gap-1 self-center rounded-lg border border-dashed border-line text-steel sm:self-start lg:mx-auto lg:max-w-none lg:self-stretch">
+            <UserIcon className="size-8" />
+            <span className="text-sm">Coming soon</span>
           </div>
         </Container>
       </section>
