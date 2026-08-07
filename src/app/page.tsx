@@ -113,22 +113,14 @@ export default function Home() {
       </section>
 
       <section id="about" className="scroll-mt-24 py-10 sm:py-14 lg:py-20">
-        <Container className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-12">
+        <Container className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1fr] lg:items-start lg:gap-12">
           <div>
-            <div className="flex items-start gap-4 sm:gap-6">
-              <div className="flex aspect-[3/4] w-28 shrink-0 flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-line text-steel sm:w-36">
-                <UserIcon className="size-6 sm:size-7" />
-                <span className="text-[10px] leading-none sm:text-xs">Coming soon</span>
-              </div>
-              <div>
-                <p className="font-display text-xs font-semibold tracking-[0.2em] text-steel uppercase sm:text-sm">
-                  About
-                </p>
-                <h2 className="mt-1 text-balance font-display text-2xl font-semibold tracking-tight text-ink uppercase sm:text-3xl lg:text-4xl">
-                  One welder. No middlemen.
-                </h2>
-              </div>
-            </div>
+            <p className="font-display text-xs font-semibold tracking-[0.2em] text-steel uppercase sm:text-sm">
+              About
+            </p>
+            <h2 className="mt-1 text-balance font-display text-2xl font-semibold tracking-tight text-ink uppercase sm:text-3xl lg:text-4xl">
+              One welder. No middlemen.
+            </h2>
             <div className="mt-4 flex flex-col gap-3 text-base leading-relaxed text-steel sm:mt-6 sm:gap-4 sm:text-lg">
               <p>
                 BB&rsquo;s Mobile Welding is Ben Bjornsen, working solo out of
@@ -148,21 +140,27 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="flex flex-col gap-3 rounded-lg border border-line bg-fog p-5 sm:gap-4 sm:p-8">
-            <h3 className="font-display text-sm font-semibold tracking-widest text-ink uppercase">
-              Hours
-            </h3>
-            <ul className="flex flex-col gap-3">
-              {siteConfig.hours.map((h) => (
-                <li key={h.day} className="flex items-center justify-between gap-4 text-sm">
-                  <span className="flex items-center gap-2 text-steel">
-                    <ClockIcon className="size-4 shrink-0" />
-                    {h.day}
-                  </span>
-                  <span className="font-medium text-ink">{h.time}</span>
-                </li>
-              ))}
-            </ul>
+          <div className="flex flex-col gap-6">
+            <div className="flex aspect-[3/4] w-full max-w-56 flex-col items-center justify-center gap-1 self-center rounded-lg border border-dashed border-line text-steel sm:self-start">
+              <UserIcon className="size-7" />
+              <span className="text-xs">Coming soon</span>
+            </div>
+            <div className="flex flex-col gap-3 rounded-lg border border-line bg-fog p-5 sm:gap-4 sm:p-8">
+              <h3 className="font-display text-sm font-semibold tracking-widest text-ink uppercase">
+                Hours
+              </h3>
+              <ul className="flex flex-col gap-3">
+                {siteConfig.hours.map((h) => (
+                  <li key={h.day} className="flex items-center justify-between gap-4 text-sm">
+                    <span className="flex items-center gap-2 text-steel">
+                      <ClockIcon className="size-4 shrink-0" />
+                      {h.day}
+                    </span>
+                    <span className="font-medium text-ink">{h.time}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </Container>
       </section>
