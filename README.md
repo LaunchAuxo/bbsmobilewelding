@@ -24,14 +24,17 @@ Also swap `/logo.jpg` in `public/` for a higher-resolution or vector
 version if one ever exists — the current one is the single 1500×1500
 JPG provided, so it's also standing in as the favicon and OG image.
 
-**Photos:** the Gallery section is a swipeable carousel with a
-click-to-expand lightbox (`src/components/Gallery.tsx`), showing 7 real
-jobsite photos plus support for before/after pairs (shown side-by-side
-in one slide, same height as the rest — doesn't grow the section). To
-add a plain photo or a before/after pair, add an entry to `galleryItems`
-in `src/lib/site-config.ts` — see the comment above that array for the
-exact shape. Width/height should be the file's actual pixel dimensions
-(avoids layout shift).
+**Photos:** the Gallery section has two swipeable carousels, each with
+a click-to-expand lightbox (`src/components/Gallery.tsx`):
+- **Finished Work** (`PhotoCarousel`) — 7 real jobsite photos, from
+  `galleryPhotos` in `src/lib/site-config.ts`.
+- **Before & After** (`BeforeAfterCarousel`) — each slide shows a pair
+  side-by-side. Empty for now (shows a "coming soon" placeholder) until
+  real pairs exist — add them to `beforeAfterPairs` in the same file;
+  see the comment above that array for the exact shape.
+
+Width/height on every photo entry should be the file's actual pixel
+dimensions (avoids layout shift).
 
 **Contact form:** `src/components/ContactForm.tsx` posts directly to
 [Web3Forms](https://web3forms.com) from the browser — no backend needed,

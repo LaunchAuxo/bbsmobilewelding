@@ -5,10 +5,10 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { MobileVsShop } from "@/components/MobileVsShop";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
-import { Gallery } from "@/components/Gallery";
+import { PhotoCarousel, BeforeAfterCarousel } from "@/components/Gallery";
 import { ContactForm } from "@/components/ContactForm";
 import { CallButton, SmsQuoteButton } from "@/components/CtaButtons";
-import { galleryItems, services, serviceAreaCities, siteConfig } from "@/lib/site-config";
+import { beforeAfterPairs, galleryPhotos, services, serviceAreaCities, siteConfig } from "@/lib/site-config";
 import { ClockIcon, MailIcon, MapPinIcon, PhoneIcon } from "@/components/icons";
 
 export default function Home() {
@@ -93,8 +93,21 @@ export default function Home() {
             title="Recent work"
             description="A few jobs Ben's finished recently — swipe through, or tap a photo for the full-size view."
           />
-          <div className="mt-12">
-            <Gallery items={galleryItems} />
+          <div className="mt-10">
+            <h3 className="font-display text-sm font-semibold tracking-widest text-ink uppercase">
+              Finished Work
+            </h3>
+            <div className="mt-4">
+              <PhotoCarousel photos={galleryPhotos} />
+            </div>
+          </div>
+          <div className="mt-10">
+            <h3 className="font-display text-sm font-semibold tracking-widest text-ink uppercase">
+              Before &amp; After
+            </h3>
+            <div className="mt-4">
+              <BeforeAfterCarousel pairs={beforeAfterPairs} />
+            </div>
           </div>
         </Container>
       </section>
