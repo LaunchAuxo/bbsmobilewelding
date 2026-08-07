@@ -63,6 +63,60 @@ export const smsQuoteHref = `sms:${siteConfig.smsNumber}?&body=${encodeURICompon
   smsQuoteTemplate
 )}`;
 
+export type GalleryPhoto = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+};
+
+// Real jobsite photos. Add more the same way — src, native width/height
+// (avoids layout shift), and a short honest alt description.
+export const galleryPhotos: GalleryPhoto[] = [
+  {
+    src: "/gallery/01-stair-railing.jpg",
+    width: 720,
+    height: 960,
+    alt: "Custom black metal stair railing, interior residential install",
+  },
+  {
+    src: "/gallery/02-aluminum-fabrication.jpg",
+    width: 2048,
+    height: 1536,
+    alt: "Custom aluminum frame fabrication in the shop",
+  },
+  {
+    src: "/gallery/03-commercial-crane.jpg",
+    width: 1536,
+    height: 2048,
+    alt: "Commercial jobsite with cranes setting steel on a storefront",
+  },
+  {
+    src: "/gallery/04-commercial-bracket.jpg",
+    width: 1536,
+    height: 2048,
+    alt: "Steel bracket installed on a commercial building exterior",
+  },
+  {
+    src: "/gallery/05-weld-detail.jpg",
+    width: 1536,
+    height: 2048,
+    alt: "Close-up of a finished weld seam on fabricated equipment",
+  },
+  {
+    src: "/gallery/06-trailer-repair.jpg",
+    width: 1536,
+    height: 2048,
+    alt: "Trailer frame weld repair",
+  },
+  {
+    src: "/gallery/07-gate-repair.jpg",
+    width: 1152,
+    height: 2048,
+    alt: "Gate frame corner weld repair, outdoor",
+  },
+];
+
 export type Service = {
   slug: string;
   title: string;

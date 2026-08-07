@@ -5,9 +5,10 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { MobileVsShop } from "@/components/MobileVsShop";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
+import { Gallery } from "@/components/Gallery";
 import { CallButton, SmsQuoteButton } from "@/components/CtaButtons";
-import { services, serviceAreaCities, siteConfig } from "@/lib/site-config";
-import { CameraIcon, ClockIcon, MailIcon, MapPinIcon, PhoneIcon } from "@/components/icons";
+import { galleryPhotos, services, serviceAreaCities, siteConfig } from "@/lib/site-config";
+import { ClockIcon, MailIcon, MapPinIcon, PhoneIcon } from "@/components/icons";
 
 export default function Home() {
   return (
@@ -89,26 +90,11 @@ export default function Home() {
           <SectionHeading
             eyebrow="Gallery"
             title="Recent work"
-            description="Ben's out in the field more than he's behind a camera, so this section is still filling in. Photos of finished repairs will go here as jobs wrap up."
+            description="A few jobs Ben's finished recently — swipe through, or tap a photo for the full-size view."
           />
-          <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div
-                key={i}
-                className="flex aspect-square flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-line bg-paper text-steel"
-              >
-                <CameraIcon className="size-6" />
-                <span className="text-xs">Coming soon</span>
-              </div>
-            ))}
+          <div className="mt-12">
+            <Gallery photos={galleryPhotos} />
           </div>
-          <p className="mt-6 text-sm text-steel">
-            Want to see examples of recent work before you decide?{" "}
-            <a href={siteConfig.phoneHref} className="font-semibold text-ink underline underline-offset-2">
-              Give Ben a call
-            </a>{" "}
-            and ask.
-          </p>
         </Container>
       </section>
 
