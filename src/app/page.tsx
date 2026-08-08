@@ -204,7 +204,7 @@ export default function Home() {
         </Container>
       </section>
 
-      <section id="contact" className="scroll-mt-24 border-t border-line bg-black py-10 sm:py-14 lg:py-20">
+      <section id="contact" className="scroll-mt-20 border-t border-line bg-black py-10 sm:py-14 lg:py-20">
         <Container>
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
             <div className="flex flex-col items-start gap-4 sm:gap-6">

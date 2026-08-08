@@ -16,24 +16,24 @@ export function Header() {
       <Container className="flex h-20 items-center justify-between gap-4">
         <Logo size={52} />
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="hidden items-center gap-5 xl:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium tracking-wide text-steel uppercase transition-colors hover:text-ink"
+              className="text-sm font-medium tracking-wide whitespace-nowrap text-steel uppercase transition-colors hover:text-ink"
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-3 xl:flex">
           <a
             href={siteConfig.phoneHref}
-            className="flex items-center gap-2 text-sm font-semibold text-ink"
+            className="flex items-center gap-2 text-sm font-semibold whitespace-nowrap text-ink"
           >
-            <PhoneIcon className="size-4" />
+            <PhoneIcon className="size-4 shrink-0" />
             {siteConfig.phoneDisplay}
           </a>
           <SmsQuoteButton size="md" label="Text for a Quote" />
@@ -42,7 +42,7 @@ export function Header() {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="flex size-11 items-center justify-center rounded-md border border-line text-ink lg:hidden"
+          className="flex size-11 items-center justify-center rounded-md border border-line text-ink xl:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
         >
@@ -51,7 +51,7 @@ export function Header() {
       </Container>
 
       {open && (
-        <div className="border-t border-line bg-paper lg:hidden">
+        <div className="border-t border-line bg-paper xl:hidden">
           <Container className="flex flex-col gap-1 py-4">
             {navLinks.map((link) => (
               <Link
