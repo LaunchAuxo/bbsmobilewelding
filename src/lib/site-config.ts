@@ -182,13 +182,6 @@ export const services: Service[] = [
       "Pipe fence, livestock panels, gate frames that have sagged or gotten bent — welded back square and solid, on-site.",
   },
   {
-    slug: "equipment-machinery-repair",
-    title: "Equipment & Machinery Repair",
-    short: "Cracked frames, broken mounts, worn buckets.",
-    description:
-      "Skid steers, mowers, attachments, shop equipment — cracked frames and broken mounts get welded up right instead of held together with hope.",
-  },
-  {
     slug: "steel-aluminum-stainless",
     title: "Steel, Aluminum & Stainless Welding",
     short: "MIG, TIG, and stick — whatever the material calls for.",
