@@ -1,39 +1,41 @@
-import { siteConfig } from "@/lib/site-config";
 import { ClockIcon, MapPinIcon, TruckIcon, WrenchIcon } from "./icons";
 
+// Short titles only — full context (radius, mobile-vs-shop, etc.) is
+// covered elsewhere on the page, this strip is just a quick trust signal.
 const items = [
   {
     icon: TruckIcon,
     title: "Owner-operated",
-    detail: "You deal directly with Ben — no dispatcher, no subcontractors.",
   },
   {
     icon: WrenchIcon,
     title: "Mobile or in-shop",
-    detail: "Ben comes to you, or you drop the work off in Cedar Rapids.",
   },
   {
     icon: MapPinIcon,
-    title: siteConfig.serviceRadiusLabel,
-    detail: "Farms, jobsites, and shops across eastern Iowa.",
+    title: "2-Hour Radius",
   },
   {
     icon: ClockIcon,
     title: "Fast replies",
-    detail: "Text photos, get a straight answer back — not a runaround.",
   },
 ];
 
+// Compact single-row strip — lives inside the Hero rather than its own
+// section, so it doesn't cost a full section's worth of padding and
+// "How It Works" stays reachable without scrolling on typical screens.
 export function TrustBar() {
   return (
-    <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line lg:grid-cols-4">
-      {items.map(({ icon: Icon, title, detail }) => (
-        <div key={title} className="flex flex-col gap-2 bg-paper p-4 sm:gap-3 sm:p-6">
-          <Icon className="size-5 text-ink sm:size-6" />
-          <h3 className="font-display text-xs font-semibold tracking-wide text-ink uppercase sm:text-sm">
+    <div className="grid grid-cols-4 gap-2 sm:gap-3">
+      {items.map(({ icon: Icon, title }) => (
+        <div
+          key={title}
+          className="flex flex-col items-center gap-1.5 rounded-lg border border-line bg-paper px-1.5 py-3 text-center sm:gap-2 sm:px-3 sm:py-4"
+        >
+          <Icon className="size-5 shrink-0 text-ink sm:size-6" />
+          <span className="text-[10px] leading-tight font-semibold text-ink uppercase sm:text-xs">
             {title}
-          </h3>
-          <p className="text-xs leading-relaxed text-steel sm:text-sm">{detail}</p>
+          </span>
         </div>
       ))}
     </div>

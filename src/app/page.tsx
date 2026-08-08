@@ -1,6 +1,5 @@
 import { Container } from "@/components/Container";
 import { Hero } from "@/components/Hero";
-import { TrustBar } from "@/components/TrustBar";
 import { HowItWorks } from "@/components/HowItWorks";
 import { MobileVsShop } from "@/components/MobileVsShop";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -25,13 +24,7 @@ export default function Home() {
     <>
       <Hero />
 
-      <section className="py-10 sm:py-14 lg:py-20">
-        <Container>
-          <TrustBar />
-        </Container>
-      </section>
-
-      <section className="border-t border-line bg-fog py-10 sm:py-14 lg:py-20">
+      <section className="border-t border-line bg-fog py-8 sm:py-14 lg:py-20">
         <Container>
           <SectionHeading
             eyebrow="How It Works"
