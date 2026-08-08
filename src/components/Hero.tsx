@@ -21,10 +21,7 @@ export function Hero() {
         </p>
         <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
           <SmsQuoteButton size="lg" variant="glow" />
-          <CallButton
-            size="lg"
-            className="border-paper text-paper hover:bg-paper hover:text-black"
-          />
+          <CallButton size="lg" tone="light" />
         </div>
         <div className="w-full pt-2 sm:pt-4">
           <TrustBar />

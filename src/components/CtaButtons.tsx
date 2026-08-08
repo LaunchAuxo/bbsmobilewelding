@@ -43,17 +43,31 @@ export function SmsQuoteButton({
   );
 }
 
+// tone picks a complete, non-overlapping set of border/text/hover
+// classes rather than letting a caller override individual hover
+// classes via className — two same-specificity hover utilities
+// targeting the same property (e.g. a passed-in hover:text-black
+// fighting this component's own hover:text-paper) resolve by
+// stylesheet order, not by which one "looks more specific," and that
+// previously produced white-on-white invisible text on dark sections.
+const toneClasses = {
+  dark: "border-ink text-ink hover:bg-ink hover:text-paper",
+  light: "border-paper text-paper hover:bg-paper hover:text-black",
+} as const;
+
 export function CallButton({
   size = "md",
+  tone = "dark",
   className = "",
 }: {
   size?: keyof typeof sizeClasses;
+  tone?: keyof typeof toneClasses;
   className?: string;
 }) {
   return (
     <a
       href={siteConfig.phoneHref}
-      className={`inline-flex items-center justify-center gap-2 rounded-md border border-ink font-display font-semibold tracking-wide text-ink uppercase transition-colors hover:bg-ink hover:text-paper ${sizeClasses[size]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-md border font-display font-semibold tracking-wide uppercase transition-all hover:-translate-y-px ${toneClasses[tone]} ${sizeClasses[size]} ${className}`}
     >
       <PhoneIcon className="size-5 shrink-0" />
       Call {siteConfig.phoneDisplay}

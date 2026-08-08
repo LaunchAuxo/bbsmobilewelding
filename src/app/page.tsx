@@ -213,11 +213,8 @@ export default function Home() {
                 you what it takes to fix it.
               </p>
               <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-                <SmsQuoteButton size="lg" />
-                <CallButton
-                  size="lg"
-                  className="border-paper text-paper hover:bg-paper hover:text-black"
-                />
+                <SmsQuoteButton size="lg" variant="glow" />
+                <CallButton size="lg" tone="light" />
               </div>
               <a href="#contact-form" className="text-sm text-mist underline underline-offset-2 hover:text-paper">
                 Prefer email? Skip to the form ↓
