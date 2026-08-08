@@ -5,10 +5,19 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { MobileVsShop } from "@/components/MobileVsShop";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
+import { PricingCard } from "@/components/PricingCard";
 import { PhotoCarousel, BeforeAfterCarousel } from "@/components/Gallery";
 import { ContactForm } from "@/components/ContactForm";
 import { CallButton, SmsQuoteButton } from "@/components/CtaButtons";
-import { beforeAfterPairs, galleryPhotos, services, serviceAreaCities, siteConfig } from "@/lib/site-config";
+import {
+  beforeAfterPairs,
+  galleryPhotos,
+  inShopPackages,
+  mobilePackages,
+  services,
+  serviceAreaCities,
+  siteConfig,
+} from "@/lib/site-config";
 import { ClockIcon, MailIcon, MapPinIcon, PhoneIcon, UserIcon } from "@/components/icons";
 
 export default function Home() {
@@ -58,6 +67,38 @@ export default function Home() {
           />
           <div className="mt-8 lg:mt-12">
             <MobileVsShop />
+          </div>
+        </Container>
+      </section>
+
+      <section id="pricing" className="scroll-mt-24 border-t border-line py-10 sm:py-14 lg:py-20">
+        <Container>
+          <SectionHeading
+            eyebrow="Pricing"
+            title="Flat-rate packages, no surprises"
+            description="Fixed pricing instead of an hourly guess — you know the cost before Ben starts. Bigger or smaller than these? Text a photo and Ben will work out a price."
+          />
+
+          <div className="mt-8 sm:mt-10">
+            <h3 className="font-display text-xs font-semibold tracking-widest text-ink uppercase sm:text-sm">
+              In-Shop Packages
+            </h3>
+            <div className="mt-3 grid grid-cols-2 gap-3 sm:mt-4 sm:gap-4 lg:grid-cols-4">
+              {inShopPackages.map((pkg) => (
+                <PricingCard key={pkg.name} pkg={pkg} />
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-6 sm:mt-8">
+            <h3 className="font-display text-xs font-semibold tracking-widest text-ink uppercase sm:text-sm">
+              Mobile Packages
+            </h3>
+            <div className="mt-3 grid grid-cols-2 gap-3 sm:mt-4 sm:gap-4 lg:grid-cols-4">
+              {mobilePackages.map((pkg) => (
+                <PricingCard key={pkg.name} pkg={pkg} />
+              ))}
+            </div>
           </div>
         </Container>
       </section>

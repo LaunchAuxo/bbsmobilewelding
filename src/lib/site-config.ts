@@ -38,6 +38,7 @@ export const siteConfig = {
 
 export const navLinks = [
   { href: "#services", label: "Services" },
+  { href: "#pricing", label: "Pricing" },
   { href: "#service-area", label: "Service Area" },
   { href: "#gallery", label: "Gallery" },
   { href: "#about", label: "About" },
@@ -194,6 +195,28 @@ export const services: Service[] = [
     description:
       "Mild steel, aluminum, or stainless — Ben works across materials and picks the right process for the job instead of forcing one process on everything.",
   },
+];
+
+export type PricingPackage = {
+  name: string;
+  price: string;
+  description: string;
+};
+
+// Flat-rate packages, replacing hourly/estimate-based pricing. In-shop
+// packages cover shop time + consumables; mobile packages add travel.
+export const inShopPackages: PricingPackage[] = [
+  { name: "Quick Fix", price: "$90", description: "1 hour of shop welding + consumables" },
+  { name: "Half Day", price: "$325", description: "Up to 4 hours of welding + consumables" },
+  { name: "Full Day", price: "$625", description: "Up to 8 hours of welding + consumables" },
+  { name: "Project Package", price: "$1,200", description: "Up to 16 hours of welding + consumables" },
+];
+
+export const mobilePackages: PricingPackage[] = [
+  { name: "Mobile Quick Fix", price: "$265", description: "1 hour welding + travel + consumables" },
+  { name: "Mobile Half Day", price: "$655", description: "4 hours welding + travel + consumables" },
+  { name: "Mobile Full Day", price: "$1,185", description: "8 hours welding + travel + consumables" },
+  { name: "Mobile Project Package", price: "$2,245", description: "16 hours welding + travel + consumables" },
 ];
 
 // Rough list of towns within ~2 hours of Cedar Rapids, grouped loosely by direction.
