@@ -20,7 +20,7 @@ export function Hero() {
           straight answer.
         </p>
         <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-          <SmsQuoteButton size="lg" />
+          <SmsQuoteButton size="lg" variant="glow" />
           <CallButton
             size="lg"
             className="border-paper text-paper hover:bg-paper hover:text-black"

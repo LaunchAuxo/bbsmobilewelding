@@ -12,11 +12,26 @@ export function SmsQuoteButton({
   size = "md",
   className = "",
   label = "Text Photos, Get a Fast Quote",
+  variant = "solid",
 }: {
   size?: keyof typeof sizeClasses;
   className?: string;
   label?: string;
+  variant?: "solid" | "glow";
 }) {
+  if (variant === "glow") {
+    return (
+      <a
+        href={smsQuoteHref}
+        className={`cta-glow group relative isolate inline-flex items-center justify-center gap-2 overflow-hidden rounded-full font-display font-semibold tracking-wide text-paper uppercase ${sizeClasses[size]} ${className}`}
+      >
+        <span className="cta-glow__shimmer pointer-events-none" aria-hidden="true" />
+        <MessageIcon className="relative z-10 size-5 shrink-0" />
+        <span className="cta-glow__label relative z-10">{label}</span>
+      </a>
+    );
+  }
+
   return (
     <a
       href={smsQuoteHref}

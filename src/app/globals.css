@@ -39,3 +39,66 @@ body {
 .text-balance {
   text-wrap: balance;
 }
+
+/* Glow CTA button (Hero's primary "Text Photos" button) — dark glass
+   pill with a pulsing glow and a diagonal shimmer sweep, inspired by
+   a reference screenshot the client provided. Colors stay monochrome
+   (white glow on near-black) to match the site's neutral palette. */
+.cta-glow {
+  background:
+    radial-gradient(140% 180% at 50% -40%, rgba(255, 255, 255, 0.35), transparent 55%),
+    linear-gradient(180deg, #232326 0%, #050505 100%);
+  animation: cta-glow-pulse 3.2s ease-in-out infinite;
+  transition: transform 0.2s ease;
+}
+
+.cta-glow:hover {
+  transform: translateY(-1px);
+}
+
+.cta-glow__label {
+  text-shadow:
+    0 0 14px rgba(255, 255, 255, 0.65),
+    0 0 28px rgba(255, 255, 255, 0.3);
+}
+
+.cta-glow__shimmer {
+  position: absolute;
+  inset: -20% -40%;
+  background: linear-gradient(75deg, transparent 45%, rgba(255, 255, 255, 0.35) 50%, transparent 55%);
+  animation: cta-glow-shimmer 3.2s ease-in-out infinite;
+}
+
+@keyframes cta-glow-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.08),
+      inset 0 1px 1px rgba(255, 255, 255, 0.3),
+      inset 0 -3px 6px rgba(0, 0, 0, 0.5),
+      0 0 22px 0 rgba(255, 255, 255, 0.14);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.16),
+      inset 0 1px 1px rgba(255, 255, 255, 0.45),
+      inset 0 -3px 6px rgba(0, 0, 0, 0.5),
+      0 0 38px 4px rgba(255, 255, 255, 0.28);
+  }
+}
+
+@keyframes cta-glow-shimmer {
+  0% {
+    transform: translateX(-60%);
+  }
+  100% {
+    transform: translateX(60%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-glow,
+  .cta-glow__shimmer {
+    animation: none;
+  }
+}
