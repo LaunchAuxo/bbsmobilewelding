@@ -52,18 +52,6 @@ export default function Home() {
         </Container>
       </section>
 
-      <section className="border-t border-line bg-fog py-10 sm:py-14 lg:py-20">
-        <Container>
-          <SectionHeading
-            eyebrow="Mobile or In-Shop"
-            title="Two ways to get it fixed"
-          />
-          <div className="mt-8 lg:mt-12">
-            <MobileVsShop />
-          </div>
-        </Container>
-      </section>
-
       <section id="pricing" className="scroll-mt-24 border-t border-line py-10 sm:py-14 lg:py-20">
         <Container>
           <SectionHeading
@@ -92,6 +80,18 @@ export default function Home() {
                 <PricingCard key={pkg.name} pkg={pkg} />
               ))}
             </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-t border-line bg-fog py-10 sm:py-14 lg:py-20">
+        <Container>
+          <SectionHeading
+            eyebrow="Mobile or In-Shop"
+            title="Two ways to get it fixed"
+          />
+          <div className="mt-8 lg:mt-12">
+            <MobileVsShop />
           </div>
         </Container>
       </section>
