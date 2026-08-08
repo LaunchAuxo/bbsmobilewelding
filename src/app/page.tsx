@@ -24,7 +24,7 @@ export default function Home() {
     <>
       <Hero />
 
-      <section className="border-t border-line bg-fog py-8 sm:py-14 lg:py-20">
+      <section className="border-t border-line py-8 sm:py-14 lg:py-20">
         <Container>
           <SectionHeading
             eyebrow="How It Works"
@@ -37,7 +37,7 @@ export default function Home() {
         </Container>
       </section>
 
-      <section id="services" className="scroll-mt-24 py-10 sm:py-14 lg:py-20">
+      <section id="services" className="scroll-mt-24 border-t border-line bg-fog py-10 sm:py-14 lg:py-20">
         <Container>
           <SectionHeading
             eyebrow="Services"
@@ -96,7 +96,7 @@ export default function Home() {
         </Container>
       </section>
 
-      <section id="service-area" className="scroll-mt-24 py-10 sm:py-14 lg:py-20">
+      <section id="service-area" className="scroll-mt-24 border-t border-line py-10 sm:py-14 lg:py-20">
         <Container>
           <SectionHeading
             eyebrow="Service Area"
@@ -146,7 +146,7 @@ export default function Home() {
         </Container>
       </section>
 
-      <section id="about" className="scroll-mt-24 py-10 sm:py-14 lg:py-20">
+      <section id="about" className="scroll-mt-24 border-t border-line py-10 sm:py-14 lg:py-20">
         <Container className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1fr] lg:items-start lg:gap-12">
           <div>
             <p className="font-display text-xs font-semibold tracking-[0.2em] text-steel uppercase sm:text-sm">
