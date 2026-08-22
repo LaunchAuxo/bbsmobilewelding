@@ -15,10 +15,12 @@ export const siteConfig = {
 
   facebookUrl: "https://www.facebook.com/profile.php?id=61579404106617",
 
-  // TEST KEY — currently routes contact-form submissions to
-  // hello@launchauxo.com for testing. Swap for a production key tied to
-  // Ben's real inbox (e.g. benbj@bbsmobilewelding.com) before launch —
-  // get one free at https://web3forms.com, no account needed.
+  // Web3Forms access key — managed under Launch Auxo's Web3Forms account.
+  // This key's notification email is set to benbj@bbsmobilewelding.com,
+  // so contact-form submissions land in Ben's inbox. The key itself
+  // doesn't change if the destination email is edited from the Web3Forms
+  // dashboard — only swap this value if a genuinely different form/key
+  // is created.
   web3formsAccessKey: "e0863328-8191-427d-8c99-661b0f04877d",
 
   city: "Cedar Rapids, Iowa",
